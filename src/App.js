@@ -1,23 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+//import React, { useEffect } from "react";
+import { useState } from "react";
+import { useDispatch, useSelector } from 'react-redux'
+import enter from "./actions/entry";
 
 function App() {
+
+  const [text,changeText] = useState('');
+
+  const authReview = useSelector(state => state.getAction)
+  const dispatchAction = useDispatch();
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <input style={{margin:'10px'}} type="text" placeholder="pswd..." value={text} onChange={(e)=>changeText(e.target.value)}></input>
+      <button onClick={()=>{dispatchAction(enter(`${text}`))}}>authenticate</button>
+      {authReview===true ? <p style={{margin:'10px'}}>Logged In</p> : <p style={{margin:'10px'}}>Incorrect Pswd</p>}
     </div>
   );
 }
