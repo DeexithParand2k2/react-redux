@@ -1,21 +1,39 @@
-//import React, { useEffect } from "react";
+import Admin from "./Admin";
 import { useState } from "react";
-import { useDispatch, useSelector } from 'react-redux'
-import enter from "./actions/entry";
+import {BrowserRouter as Router,Route, Routes} from 'react-router-dom'
+import Guest from "./Guest";
+import Loginpage from "./Loginpage";
 
 function App() {
 
-  const [text,changeText] = useState('');
+  const [retString,changeString] = useState('')
 
-  const authReview = useSelector(state => state.getAction)
-  const dispatchAction = useDispatch();
+  const someName = (retStr) =>{
+    changeString(retStr)
+  }
 
   return (
-    <div className="App">
-      <input style={{margin:'10px'}} type="text" placeholder="pswd..." value={text} onChange={(e)=>changeText(e.target.value)}></input>
-      <button onClick={()=>{dispatchAction(enter(`${text}`))}}>authenticate</button>
-      {authReview===true ? <p style={{margin:'10px'}}>Logged In</p> : <p style={{margin:'10px'}}>Incorrect Pswd</p>}
-    </div>
+    <Router>
+      <div className="App">
+        <Routes>
+            <Route path='/' element={
+              <>
+                <h1>Home Page</h1>
+                <Admin getFunc={someName}/>
+                <Guest getFunc={someName}/>
+              </>
+            }>
+            </Route>
+
+            <Route path='/loginpage' element={
+                  <Loginpage who={retString}/>
+                }  >
+            </Route>
+
+        </Routes>
+
+      </div>
+    </Router>
   );
 }
 

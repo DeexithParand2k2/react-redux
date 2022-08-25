@@ -7,16 +7,6 @@ import {legacy_createStore as createStore} from 'redux'
 import allreducers from './reducers';
 import {Provider} from 'react-redux'
 
-/*
-//store
-const store = createStore(getAction);
-
-store.subscribe(()=>console.log(store.getState()))
-
-//dispatch action
-store.dispatch(enter('econsys'))
-*/
-
 //store is here
 const store = createStore(allreducers,window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
